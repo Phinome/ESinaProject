@@ -10,3 +10,6 @@ tmp/
 .bowerrc
 
 .idea/
+
+src/lib/jqueryui/
+src/lib/validate/
