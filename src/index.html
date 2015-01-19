@@ -8,9 +8,41 @@
     <meta name="format-detection" content="telephone=no" />
     <link type="text/css" rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
     <link type="text/css" rel="stylesheet" href="styles/google-bootstrap.css" />
+    <link type="text/css" rel="stylesheet" href="styles/base.css"/>
 </head>
 <body>
-    <div id="Main" class="main"></div>
+    <div class="header">
+        <div class="container">
+            <a class="site" href="http://z.sina.com.cn">
+                <img src="./image/logo.png" alt="新浪速站"/>
+            </a>
+            <ul class="nav nav-pills nav-right">
+                <li>
+                    <a href="#" id="admin-userinfo">
+                        wuqiangtest<span>(管理员)</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/message/index">
+                        <span class="glyphicon glyphicon-inbox"></span>
+                        <span clas="badge" id="inbox"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" id="admin-logout">
+                        退出
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="Main" class="container"></div>
+    <div class="container footer">
+        <p class="footer-inc">
+            &copy; 2015 Sina, Inc. All Rights Reversed.
+        </p>
+        <p class="footer-links"></p>
+    </div>
     <!--[if lt IE 9]>
     <script>
         (function(){
@@ -31,6 +63,8 @@
     <script src="config.js"></script>
     <script src="routers.js"></script>
     <!-- endbuild -->
+    <!--<script src="lib/utils/io.js"></script>
+    <script src="lib/utils/util.js"></script>-->
     <script>
         require(["app"], function (app) {
             app.run();

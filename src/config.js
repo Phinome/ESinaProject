@@ -8,11 +8,15 @@ requirejs.config({
         jquery: "lib/jquery/dist/jquery",
         backbone: "lib/backbone/backbone",
         underscore: "lib/underscore/underscore",
-        "react-bootstrap": "lib/react-bootstrap/react-bootstrap"
+        "react-bootstrap": "lib/react-bootstrap/react-bootstrap",
+        'jquery-cookie':"lib/jquery-cookie/cookie"
     },
     shim: {
         jquery : {
             exports: "$"
+        },
+        'jquery-cookie': {
+            deps: ['jquery']
         },
         backbone: {
             deps: ['underscore', 'jquery'],

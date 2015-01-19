@@ -5,7 +5,8 @@ requirejs.config({
     baseUrl: "./",
     paths: {
         jquery: "lib/jquery/dist/jquery",
-        jqueryui: "lib/jqueryui/jquery-ui.min"
+        jqueryui: "lib/jqueryui/jquery-ui.min",
+        'jquery-cookie': "lib/jquery-cookie/cookie"
     },
     shim: {
         jquery: {
@@ -13,13 +14,17 @@ requirejs.config({
         },
         jqueryui: {
             deps: ['jquery']
+        },
+        'jquery-cookie': {
+            deps: ['jquery']
         }
     }
 });
 
 require([
     'jquery',
-    'jqueryui'
+    'jqueryui',
+    'jquery-cookie'
 ], function ($) {
     /**
      *
@@ -95,6 +100,9 @@ require([
             }
 
             $.post(url, $("#login-form").serialize()).done(function (data) {
+                $.cookie("roleList", data.roleList.join(','), { expires: 7, path: '/'});
+                $.cookie("permissionList", data.permissionList.join(','), { expires: 7, path: '/'});
+                $.cookie("user", JSON.stringify(data.user), { expires: 7, path: '/'});
                 window.location.href = './';
             }).fail(function (data) {
                 $("#alert").html(data.info);

@@ -4,8 +4,10 @@
  */
 define([
     "require",
-    "backbone"
-], function(require, Backbone) {
+    "backbone",
+    "jquery",
+    "jquery-cookie"
+], function(require, Backbone, $) {
     "use strict";
 
     //全局路由配置
@@ -42,10 +44,27 @@ define([
     //backbone标准范例
     window.App = {
         Models: {},  
-        Views: {},  
+        Views: {},
         Collections: {},
         initialize: function() {
             new autoRouter();
+
+            var userinfo = JSON.parse($.cookie('user'));
+            var role = $.cookie('roleList');
+            $('#admin-userinfo').html(userinfo.passport + '<span>('+role+')</span>');
+
+            // get message count
+            $.post('/admanager/message/list').done(function(data) {
+                if(data.data.page.totalCount) {
+                    $('#inbox').html(data.data.page.totalCount);
+                }
+            });
+
+            $("#admin-logout").on('click', function(e) {
+                e.preventDefault();
+                //suzhan.util.logout();
+            });
+
             Backbone.history.start();
         }  
     };

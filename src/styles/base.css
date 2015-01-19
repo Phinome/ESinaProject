@@ -1,0 +1,30 @@
+.header {
+    margin-bottom:10px;
+    background:#0073CD;
+}
+
+.header .site {
+    float:left;
+    margin-top:10px;
+    margin-bottom:10px;
+    color:#000;
+    text-decoration: none;
+}
+
+.nav-right {
+    float:right;
+}
+
+.nav-right > li > a {
+    height:67px;
+    padding-top: 24px;
+    color:#fff;
+}
+.nav-right > li > a:hover {
+    border-radius: 0;
+    color:#0073CD;
+    background-color:#fff;
+}
+.footer {
+    border-top:1px solid #eee;
+}

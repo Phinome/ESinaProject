@@ -143,13 +143,19 @@ suzhan.util = {
     },
     login: function () {
         suzhan.io.post("/admanager/login", {})
-            .done(function () {
+            .done(function (data) {
+                $.cookie("roleList", data.roleList.join(','), { expires: 7, path: '/'});
+                $.cookie("permissionList", data.permissionList.join(','), { expires: 7, path: '/'});
+                $.cookie("user", JSON.stringify(data.user), { expires: 7, path: '/'});
                 location.href = suzhan.util.rootpath + "/";
             });
     },
     logout: function () {
         suzhan.io.post("/admanager/logout", {})
             .done(function () {
+                $.removeCookie("roleList");
+                $.removeCookie("permissionList");
+                $.removeCookie("user");
                 suzhan.util.logout();
             });
     },
