@@ -1,7 +1,7 @@
 define(["jquery", "react"], function ($, React) {
     "use strict";
 
-    var UINav = React.createClass({
+    var UINav = React.createClass({displayName: "UINav",
         componentDidMount: function() {
             this.props.items.on('add', $.proxy(function() {
                 this.forceUpdate();
@@ -13,19 +13,19 @@ define(["jquery", "react"], function ($, React) {
         render: function () {
             var items = this.props.items.map($.proxy(function (item, i) {
                 return (
-                    <li key={i}>
-                        {item.get('name')}
-                        <span className="remove-btn" onClick={$.proxy(this.props.onremove, this, item.cid)}>x</span>
-                    </li> 
+                    React.createElement("li", {key: i}, 
+                        item.get('name'), 
+                        React.createElement("span", {className: "remove-btn", onClick: $.proxy(this.props.onremove, this, item.cid)}, "x")
+                    ) 
                 );  
             }, this));
             return (
-                <div>
-                    <span onClick={this.props.onadd}>add</span>
-                    <ul>
-                        {items}
-                    </ul>
-                </div>
+                React.createElement("div", null, 
+                    React.createElement("span", {onClick: this.props.onadd}, "add"), 
+                    React.createElement("ul", null, 
+                        items
+                    )
+                )
             );
         }
     });

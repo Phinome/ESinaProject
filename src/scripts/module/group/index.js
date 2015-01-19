@@ -33,13 +33,13 @@ define([
         },
         render: function() {
             React.render(
-                <div>
-                    <a href="#home/index/a:1/b:2">return home</a>
-                    <UINav 
-                        onadd={$.proxy(this.addHandler, this)} 
-                        onremove={$.proxy(this.removeHandler, this)} 
-                        items={this.items} />
-                </div>,
+                React.createElement("div", null, 
+                    React.createElement("a", {href: "#home/index/a:1/b:2"}, "return home"), 
+                    React.createElement(UINav, {
+                        onadd: $.proxy(this.addHandler, this), 
+                        onremove: $.proxy(this.removeHandler, this), 
+                        items: this.items})
+                ),
                 this.el
             );
         }

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>新浪速站管理系统</title>
+    <link rel="stylesheet" type="text/css" href="lib/jqueryui/jquery-ui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="lib/jqueryui/jquery-ui.theme.min.css"/>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" href="styles/google-bootstrap.css" type="text/css"/>
+    <link rel="stylesheet" href="styles/login.css" type="text/css"/>
+</head>
+<body>
+    <div class="wrap">
+        <div class="header">
+            <div class="container">
+                <a class="site" href="http://z.sina.com.cn">
+                    <img src="./image/logo.png" alt="新浪速站"/>
+                </a>
+            </div>
+        </div>
+        <div class="container">
+            <div class="auth-form-wrap">
+                <form class="auth-form" action="" role="form" id="login-form">
+                    <div class="form-header">
+                        <h1>登陆</h1>
+                    </div>
+                    <div class="form-group form-container">
+                        <label for="username">用户名</label>
+                        <input id="username" type="text" class="form-control"/>
+                    </div>
+                    <div class="form-group form-container">
+                        <label for="password">密码 <a href="#" class="form-forgin">（忘记密码）</a></label>
+                        <input id="password" type="password" class="form-control"/>
+                    </div>
+                    <div class="form-group form-footer">
+                        <button type="submit" class="btn btn-default">登陆</button>
+                    </div>
+                </form>
+                <div class="auth-form form-horizontal hidden" role="form" id="auto-login-form">
+                    <div class="form-header">
+                    <h1>登陆</h1>
+                    </div>
+                    <div class="form-group form-container">
+                        <div class="avatar-wrap" id="user-avatar">
+                        </div>
+                    </div>
+                    <div class="form-group form-container">
+                        <a class="weibo-btn" href="javascript:void(0);" id="weibo-login">
+                            <img src="./image/weibo.png"/>
+                        </a>
+                    </div>
+                    <div class="form-group form-container">
+                        <a class="btn btn-info change-user-btn" href="javascript:void(0);" id="change-user">
+                            更换用户
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container footer">
+            <p class="footer-inc">
+                &copy; 2015 Sina, Inc. All Rights Reversed.
+            </p>
+            <p class="footer-links"></p>
+        </div>
+    </div>
+    <div id="alert"></div>
+    <script type="text/javascript" src="http://i.sso.sina.com.cn/js/ssologin.js"></script>
+    <!-- build:js utils.js -->
+    <script src="lib/utils/io.js"></script>
+    <script src="lib/utils/util.js"></script>
+    <!-- endbuild -->
+    <script src="lib/requirejs/require.js" data-main="scripts/login.js"></script>
+</body>
+</html>
