@@ -9,7 +9,8 @@ requirejs.config({
         backbone: "lib/backbone/backbone",
         underscore: "lib/underscore/underscore",
         "react-bootstrap": "lib/react-bootstrap/react-bootstrap",
-        'jquery-cookie':"lib/jquery-cookie/cookie"
+        "jquery-cookie":"lib/jquery-cookie/cookie",
+        moment: "lib/moment/moment.min"
     },
     shim: {
         jquery : {

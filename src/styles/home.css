@@ -1,0 +1,13 @@
+.form-search {
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+.form-group-inline {
+    display: inline-block;
+}
+
+.search-label {
+    width:90px;
+    margin-top:7px;
+}
