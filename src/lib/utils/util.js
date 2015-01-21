@@ -1,6 +1,6 @@
 var suzhan = window.suzhan || {};
 suzhan.util = {
-    rootpath: "/src",
+    rootpath: "/",
     cleanxss: function (str) {
         return encodeURIComponent(decodeURIComponent(str).replace(/<[^>]+>/g, ''));
     },
@@ -127,7 +127,7 @@ suzhan.util = {
                 }
                 return data;
             } else {
-                location.href.match(/login.html/) ? '' : location.href = suzhan.util.rootpath + '/login.html';
+                location.href.match(/login.html/) ? '' : location.href = suzhan.util.rootpath + 'login.html';
             }
         });
     },
@@ -147,7 +147,7 @@ suzhan.util = {
                 $.cookie("roleList", data.roleList.join(','), { expires: 7, path: '/'});
                 $.cookie("permissionList", data.permissionList.join(','), { expires: 7, path: '/'});
                 $.cookie("user", JSON.stringify(data.user), { expires: 7, path: '/'});
-                location.href = suzhan.util.rootpath + "/";
+                location.href = suzhan.util.rootpath;
             });
     },
     logout: function () {
@@ -156,7 +156,8 @@ suzhan.util = {
                 $.removeCookie("roleList");
                 $.removeCookie("permissionList");
                 $.removeCookie("user");
-                suzhan.util.logout();
+                suzhan.util.ssologout();
+                location.href = suzhan.util.rootpath + "login.html"
             });
     },
     beforeunload: function (status) {

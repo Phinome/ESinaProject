@@ -62,7 +62,7 @@ define([
 
             $("#admin-logout").on('click', function(e) {
                 e.preventDefault();
-                //suzhan.util.logout();
+                suzhan.util.logout();
             });
 
             Backbone.history.start();

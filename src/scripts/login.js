@@ -100,9 +100,9 @@ require([
             }
 
             $.post(url, $("#login-form").serialize()).done(function (data) {
-                $.cookie("roleList", data.roleList.join(','), { expires: 7, path: '/'});
-                $.cookie("permissionList", data.permissionList.join(','), { expires: 7, path: '/'});
-                $.cookie("user", JSON.stringify(data.user), { expires: 7, path: '/'});
+                $.cookie("roleList", data.data.roleList.join(','), { expires: 1, path: '/'});
+                $.cookie("permissionList", data.data.permissionList.join(','), { expires: 1, path: '/'});
+                $.cookie("user", JSON.stringify(data.data.user), { expires: 1, path: '/'});
                 window.location.href = './';
             }).fail(function (data) {
                 $("#alert").html(data.info);

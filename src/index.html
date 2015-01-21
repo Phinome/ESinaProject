@@ -60,14 +60,17 @@
     <script src="lib/html5shiv/html5shiv.js"></script>
     <script src="lib/es5-shim/es5-shim.js"></script>
     <![endif]-->
+    <script type="text/javascript" src="lib/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="http://i.sso.sina.com.cn/js/ssologin.js"></script>
+    <script src="lib/utils/io.js"></script>
+    <script src="lib/utils/util.js"></script>
     <!-- build:js boot.js -->
     <script src="lib/requirejs/require.js"></script>
     <script src="config.js"></script>
     <script src="routers.js"></script>
     <!-- endbuild -->
-    <!--<script src="lib/utils/io.js"></script>
-    <script src="lib/utils/util.js"></script>-->
     <script>
+        suzhan.util.checkLogin();
         require(["app"], function (app) {
             app.run();
         });
