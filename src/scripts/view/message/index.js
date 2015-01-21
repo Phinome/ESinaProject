@@ -11,36 +11,7 @@ define([
     "css!styles/message"
 ], function($, React, ReactUI, moment) {
     "use strict";
-
-    /**
-     * Message Sotre
-     * @type {{data: Array, delete: Function, push: Function}}
-     */
-    var MessageStore = {
-        data: [],
-        delete: function (id) {
-            this.data.remove(id);
-            emit change
-        },
-        push: function () {
-            this.data.push(obj);
-            emit change
-        }
-    };
-    /**
-     * List Store
-     * @type {{data: Array}}
-     */
-    var tableStore  = {
-        data: [],
-    };
-
-    /**
-     * action
-     * @type {*|Function}
-     */
-
-
+    
     var MessageView = React.createClass({
         mixins: [ReactUI.OverlayMixin],
 
@@ -84,8 +55,6 @@ define([
         onDelete: function(e) {
             e.preventDefault();
 
-            action.deleteMessage()
-
             var params = {messageId:$(e.target).data('messageId')};
 
             $.post(this.props.deleteMessageSource, params).done(function(data) {
@@ -93,7 +62,6 @@ define([
                     this.setProps({
                         modalMessage: data.info
                     });
-                    MessageStore(id);
                     this.handleToggle();
                 } else {
                     this.setProps({
@@ -174,8 +142,6 @@ define([
             var TabbedArea = ReactUI.TabbedArea;
             var TabPane = ReactUI.TabPane;
 
-            var list = ListTable.get();
-
             return (
                 <div className="wrap">
                     <div className="col-md-2 left-nav">
@@ -228,7 +194,7 @@ define([
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {.map(function(item, i) {
+                                        {this.state.list.map(function(item, i) {
                                             var sendTime = !sendTime ? '-' : moment(parseInt(item.sendTime,10)).format("YYYY-MM-DD");
                                             return (
                                                 <tr key={i}>
