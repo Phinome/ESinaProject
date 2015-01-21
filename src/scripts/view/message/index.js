@@ -15,6 +15,19 @@ define([
     var MessageView = React.createClass({
         mixins: [ReactUI.OverlayMixin],
 
+        fetch: function() {
+            $.post(this.props.dataSource).done(function(data) {
+                this.setState({
+                    list: data.data.page.list,
+                    pageNo: data.data.page.pageNo
+                });
+
+                this.setProps({
+                    totalCount: data.data.page.totalCount
+                });
+            }.bind(this));
+        },
+
         getDefaultProps: function() {
             return ({
                 dataSource: '/admanager/message/list',
@@ -35,16 +48,7 @@ define([
             });
         },
         componentDidMount: function() {
-            $.post(this.props.dataSource).done(function(data) {
-                this.setState({
-                    list: data.data.page.list,
-                    pageNo: data.data.page.pageNo
-                });
-
-                this.setProps({
-                    totalCount: data.data.page.totalCount
-                });
-            }.bind(this));
+            this.fetch();
         },
         onSelect: function(selectKey) {
             this.setState({
@@ -55,7 +59,7 @@ define([
         onDelete: function(e) {
             e.preventDefault();
 
-            var params = {messageId:$(e.target).data('id')};
+            var params = {messageIds:$(e.target).data('id')};
 
             $.post(this.props.deleteMessageSource, params).done(function(data) {
                 if(!data.status) {
@@ -63,6 +67,8 @@ define([
                         modalMessage: data.info
                     });
                     this.handleToggle();
+                    this.fetch();
+                    this.forceUpdate();
                 } else {
                     this.setProps({
                         modalMessage: data.info
