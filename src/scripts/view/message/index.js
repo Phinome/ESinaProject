@@ -11,7 +11,7 @@ define([
     "css!styles/message"
 ], function($, React, ReactUI, moment) {
     "use strict";
-    
+
     var MessageView = React.createClass({
         mixins: [ReactUI.OverlayMixin],
 
@@ -55,7 +55,7 @@ define([
         onDelete: function(e) {
             e.preventDefault();
 
-            var params = {messageId:$(e.target).data('messageId')};
+            var params = {messageId:$(e.target).data('id')};
 
             $.post(this.props.deleteMessageSource, params).done(function(data) {
                 if(!data.status) {
@@ -94,7 +94,7 @@ define([
         onReadInfo: function(e) {
             e.preventDefault();
 
-            var params = {messageId:$(e.target).data('messageId')};
+            var params = {messageId:$(e.target).data('id')};
 
             $.post(this.props.messageDetailSource, params).done(function(data) {
                 if(!data.status) {
