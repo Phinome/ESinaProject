@@ -7,6 +7,7 @@
 requirejs.config({
     paths: {
         "home/index" : "scripts/module/home/index",
+        "home/audit" : "scripts/module/home/audit",
         "sites/index" : "scripts/module/sites/index",
         "message/index": "scripts/module/message/index"
     }

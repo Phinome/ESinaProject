@@ -253,7 +253,7 @@ suzhan.util = {
         var hasnext = cur >= total ? 'class="disabled"' : '';
         var ellipsis = 0;
         pagerHtml.push(
-            '<ul class="pagination pagination-sm" id="pager">',
+            '<ul class="pagination" id="pager">',
             '<li ' + haspre + '>',
             '<a href="javascript:void(0);">&laquo;</a>',
             '</li>'

@@ -12,6 +12,26 @@ define([
 ], function($, React, ReactUI, moment) {
     "use strict";
     var HomeView = React.createClass({
+
+        fetch: function(page) {
+            var params = {
+                pageNo : page || 1
+            }
+
+            $.post(this.props.dataSource, params).done(function(data) {
+                this.setState({
+                    list: data.data.page.list,
+                    pageNo: data.data.page.pageNo
+                });
+
+                this.setProps({
+                    totalCount: data.data.page.totalCount
+                });
+
+                suzhan.util.pager(data.data.page.pageNo, Math.ceil(data.data.page.totalCount/data.data.page.pageSize), this.fetch);
+            }.bind(this));
+        },
+
         getDefaultProps: function() {
            return ({
                dataSource: '/admanager/client/list',
@@ -26,16 +46,7 @@ define([
           });
         },
         componentDidMount: function() {
-          $.post(this.props.dataSource).done(function(data) {
-              this.setState({
-                  list: data.data.page.list,
-                  pageNo: data.data.page.pageNo
-              });
-
-              this.setProps({
-                  totalCount: data.data.page.totalCount
-              });
-          }.bind(this));
+          this.fetch();
         },
         onSearch: function(e) {
             var params = $(e.target).serialize();
@@ -51,8 +62,7 @@ define([
             var Nav = ReactUI.Nav;
             var Table = ReactUI.Table;
             var NavItem = ReactUI.NavItem;
-            var Pager = ReactUI.Pager;
-            var PageItem = ReactUI.PageItem;
+
             return (
                 <div className="wrap">
                     <div className="col-md-2 left-nav">
@@ -104,6 +114,7 @@ define([
                                     var submitTime = item.submitTime ? moment(parseInt(item.submitTime,10)).format("YYYY-MM-DD") : '-';
                                     var lastCheckTime = item.lastCheckTime ? moment(parseInt(item.lastCheckTime,10)).format("YYYY-MM-DD") : '-';
                                     var auditStatus = this.props.auditStatus[item.passStatus];
+                                    var auditURL = "#home/audit/clientId:"+item.clientId;
                                     return (
                                         <tr key={i}>
                                             <td>{item.clientId}</td>
@@ -113,13 +124,14 @@ define([
                                             <td>{item.auditUserName}</td>
                                             <td>{lastCheckTime}</td>
                                             <td className="text-center">
-                                                <a href="#audit/id/{item.clientId}" className="btn btn-info">资质审核</a>
+                                                <a href={auditURL} className="btn btn-info">资质审核</a>
                                             </td>
                                         </tr>
                                     );
                                 }, this)}
                             </tbody>
                         </Table>
+                        <div id="pager"></div>
                     </div>
                 </div>
             );

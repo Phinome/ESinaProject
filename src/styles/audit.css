@@ -1,0 +1,17 @@
+.top20 {
+    margin-top:20px;
+}
+.right10 {
+    margin-right: 10px;
+}
+
+#audit-passStatus {
+    width: 25%;
+}
+
+.profile-item {
+    line-height: 2.4;
+}
+.profile-item img {
+    width:200px;
+}

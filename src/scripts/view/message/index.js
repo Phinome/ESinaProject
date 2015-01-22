@@ -15,8 +15,11 @@ define([
     var MessageView = React.createClass({
         mixins: [ReactUI.OverlayMixin],
 
-        fetch: function() {
-            $.post(this.props.dataSource).done(function(data) {
+        fetch: function(page) {
+            var params = {
+                pageNo: page || 1
+            };
+            $.post(this.props.dataSource, params).done(function(data) {
                 this.setState({
                     list: data.data.page.list,
                     pageNo: data.data.page.pageNo
@@ -25,6 +28,8 @@ define([
                 this.setProps({
                     totalCount: data.data.page.totalCount
                 });
+                suzhan.util.pager(data.data.page.pageNo, Math.ceil(data.data.page.totalCount/data.data.page.pageSize), this.fetch);
+
             }.bind(this));
         },
 
@@ -217,6 +222,7 @@ define([
                                         }, this)}
                                     </tbody>
                                 </Table>
+                                <div id="pager"></div>
                             </TabPane>
                         </TabbedArea>
                     </div>

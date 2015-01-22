@@ -11,21 +11,20 @@ define([
     "css!styles/sites"
 ], function($, React, ReactUI, moment) {
     "use strict";
+
+    var config = {
+        offineSource : "/admanager/site/offline",
+        dataSource : "/admanager/site/list"
+    };
+
     var SitesView = React.createClass({
-        getDefaultProps: function() {
-            return ({
-                dataSource: '/admanager/site/list',
-                totalCount: 0
-            });
-        },
-        getInitialState: function() {
-            return ({
-                pageNo: 1,
-                list: []
-            });
-        },
-        componentDidMount: function() {
-            $.post(this.props.dataSource).done(function(data) {
+        mixins: [ReactUI.OverlayMixin],
+
+        fetch: function(page) {
+            var params = {
+                pageNo: page || 1
+            };
+            $.post(config.dataSource, params).done(function(data) {
                 this.setState({
                     list: data.data.page.list,
                     pageNo: data.data.page.pageNo
@@ -34,7 +33,28 @@ define([
                 this.setProps({
                     totalCount: data.data.page.totalCount
                 });
+                suzhan.util.pager(data.data.page.pageNo, Math.ceil(data.data.page.totalCount/data.data.page.pageSize), this.fetch);
+
             }.bind(this));
+
+        },
+
+        getDefaultProps: function() {
+            return ({
+                modalTitle:'',
+                modalMessage:'',
+                totalCount: 0
+            });
+        },
+        getInitialState: function() {
+            return ({
+                pageNo: 1,
+                list: [],
+                isModalOpen: false
+            });
+        },
+        componentDidMount: function() {
+            this.fetch();
         },
         onSelect: function(selectKey) {
             this.setState({
@@ -46,15 +66,37 @@ define([
             var params = $(e.target).serialize();
 
             e.preventDefault();
-            $.post(this.props.dataSource, params).done(function(data) {
+            $.post(config.dataSource, params).done(function(data) {
                 this.setState({
-                    list: data.data.page.list
+                    list: data.data.page.list,
+                    pageNo: data.data.page.pageNo
                 });
             }.bind(this));
         },
         onClick: function(e) {
             e.preventDefault();
 
+            var params = {siteId:$(e.target).data('id')};
+
+            $.post(config.offineSource, params).done(function(data) {
+                if(!data.status) {
+                    this.setProps({
+                        modalMessage: data.info
+                    });
+                    this.handleToggle();
+                } else {
+                    this.setProps({
+                        modalMessage: data.info
+                    });
+                    this.handleToggle();
+                }
+            }.bind(this));
+
+        },
+        handleToggle: function () {
+            this.setState({
+                isModalOpen: !this.state.isModalOpen
+            });
         },
         render: function() {
             var Nav = ReactUI.Nav;
@@ -116,7 +158,7 @@ define([
                                             <td>{item.clientName}</td>
                                             <td>{releaseTime}</td>
                                             <td className="text-center">
-                                                <a href="javascript:void(0);" data-id={item.clientId} className={disabled} onclick={this.onClick}>下线</a>
+                                                <a href="javascript:void(0);" data-id={item.siteId} className={disabled} onClick={this.onClick}>下线</a>
                                                 &nbsp;&nbsp;<a href={previewURL} className={disabled}>预览</a>
                                             </td>
                                         </tr>
@@ -124,8 +166,29 @@ define([
                                 }, this)}
                             </tbody>
                         </Table>
+                        <div id="pager"></div>
                     </div>
                 </div>
+            );
+        },
+        renderOverlay: function () {
+            var Modal = ReactUI.Modal;
+            var Button = ReactUI.Button;
+            var modalTitle = this.props.modalTitle ? this.props.modalTitle : "提示消息";
+
+            if (!this.state.isModalOpen) {
+                return <span/>;
+            }
+
+            return (
+                <Modal title={modalTitle} onRequestHide={this.handleToggle}>
+                    <div className="modal-body">
+                        {this.props.modalMessage}
+                    </div>
+                    <div className="modal-footer">
+                        <Button onClick={this.handleToggle}>Close</Button>
+                    </div>
+                </Modal>
             );
         }
     });

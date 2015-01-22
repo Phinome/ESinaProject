@@ -1,22 +1,21 @@
 /**
- * Created by phinome on 1/20/15.
+ * Created by phinome on 1/22/15.
  */
 define([
     "backbone",
     "react",
-    "scripts/view/message/index",
-    "css!styles/message"
-], function (Backbone, React, MessageView) {
-    "use strict";
-    App.Models.Message = Backbone.Model.extend({
+    "scripts/view/home/audit",
+    "css!styles/audit"
+], function (Backbone, React, AuditView) {
+    App.Models.Audit = Backbone.Model.extend({
 
     });
 
-    App.Collections.Message = Backbone.Collection.extend({
-        model: App.Models.Message
+    App.Collections.Audit = Backbone.Collection.extend({
+        model: App.Models.Audit
     });
 
-    App.Views.Message = Backbone.View.extend({
+    App.Views.Audit = Backbone.View.extend({
         el: '#Main',
         initialize: function(c) {
             this.Collections = c;
@@ -28,19 +27,19 @@ define([
             //    html += '<div><a href="' + m.get('link') + '">' + m.get('name') + '</a></div>';
             //});
             //this.$el.html(html);
-            React.render(<MessageView/>, this.el);
+            React.render(<AuditView model={this.Collections}/>, this.el);
         }
     })
 
     return function (params) {
         suzhan.util.checkLogin();
-
+        console.log(params);
         //模拟数据
         //var hc = new App.Collections.Home();
         //hc.add([
         //    {'name': 'home', 'link': '#home/index/a:moduleA/other:nothing'},
         //    {'name': 'sites', 'link': '#sites/index'}
         //]);
-        new App.Views.Message();
+        new App.Views.Audit(params);
     }
 });

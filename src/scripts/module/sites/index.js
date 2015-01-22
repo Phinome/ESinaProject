@@ -25,7 +25,8 @@ define([
 })
 
 return function (params) {
-    console.log(params);
+    suzhan.util.checkLogin();
+
     //模拟数据
     //var items = new App.Collections.Items([
     //    {

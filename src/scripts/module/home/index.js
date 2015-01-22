@@ -29,6 +29,8 @@ define([
     })
 
     return function (params) {
+        suzhan.util.checkLogin();
+
         //模拟数据
         //var hc = new App.Collections.Home();
         //hc.add([
