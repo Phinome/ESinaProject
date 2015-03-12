@@ -2,7 +2,7 @@
 
 ## get 
 
-git clone https://github.com/acelan86/ESinaProject
+git clone https://github.com/phinome/ESinaProject
 
 npm install
 
